@@ -19,5 +19,9 @@ namespace TestGI
         {
             return textQuestion;
         }
+        public bool CheckAnswer(int userAnswer)
+        {
+            return rightAnswer == userAnswer;
+        }
     }
 }
