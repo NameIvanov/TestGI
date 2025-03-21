@@ -12,10 +12,13 @@ namespace TestGI
 {
     public partial class FormTest : Form
     {
+        List<Class1> listQuestion = new List<Class1>();
         Random rnd = new Random();
         Class1 question1 = new Class1("2 + 2 * 2", 2);
-        Class1 question2 = new Class1("бреввно", 9);
-        Class1 question3 = new Class1("руки", 25);
+        Class1 question2 = new Class1("бревно", 9);
+        Class1 question3 = new Class1("пальцы", 25);
+        Class1 question4 = new Class1("уколы", 60);
+        Class1 question5 = new Class1("свечи", 3);
         string[] questions = { "2 + 2 * 2", "бревно", "пальцы", "уколы", "свечи" };
         int[] anwers = { 6, 9, 25, 60, 3 };
         int indexQuestion = 0;
@@ -28,6 +31,11 @@ namespace TestGI
             InitializeComponent();
             //startTest();
             labelQuestion.Text = question2.Print();
+            listQuestion.Add(question1);
+            listQuestion.Add(question2);
+            listQuestion.Add(question3);
+            listQuestion.Add(question4);
+            listQuestion.Add(question5);
         }
 
         int[] shuffle()
@@ -49,22 +57,22 @@ namespace TestGI
             orderQuestions = shuffle();
             indexQuestion = 0;
             countRightAnswer = 0;
-            labelQuestion.Text = questions[orderQuestions[indexQuestion]];
+            labelQuestion.Text = listQuestion[orderQuestions[indexQuestion]].ToString();
             labelNumberOfQuestion.Text = "Вопрос №" + (indexQuestion + 1).ToString();
             buttonNewStart.Visible = false;
         }
 
         private void buttonNextQuestion_Click(object sender, EventArgs e)
         {
-            if (indexQuestion < questions.Length)
+            if (indexQuestion < listQuestion.Count)
             {
                 int userAnswer = Convert.ToInt32(textBoxUserAnswer.Text);
-                if (userAnswer == anwers[orderQuestions[indexQuestion]])
+                if (userAnswer == listQuestion[orderQuestions[indexQuestion]].rightAnswer)
                     countRightAnswer++;
                 indexQuestion++;
                 if (indexQuestion < questions.Length)
                 {
-                    labelQuestion.Text = questions[orderQuestions[indexQuestion]];
+                    labelQuestion.Text = listQuestion[orderQuestions[indexQuestion]].ToString();
                     labelNumberOfQuestion.Text = "Вопрос №" + (indexQuestion + 1).ToString();
                 }
             }
